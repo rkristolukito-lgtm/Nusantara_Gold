@@ -93,7 +93,7 @@ export default function PortfolioScreen() {
                                 </View>
                                 <View className="flex items-center gap-2 mt-1 text-[#fcb858] flex-row">
                                     <MaterialIcons name="diamond" size={18} color="#fcb858" />
-                                    <Text className="text-sm font-bold">36.0000 gram</Text>
+                                    <Text className="text-sm text-white font-bold">36.0000 gram</Text>
                                     <Text className="text-xs text-[#A0A0A0]">• 24 Karat (99.99%)</Text>
                                 </View>
                             </View>
@@ -268,8 +268,8 @@ export default function PortfolioScreen() {
                                     <View className="h-full bg-gradient-to-r from-[#fcb858] to-amber-600 rounded-full" style={{ width: '57%' }} />
                                 </View>
                                 <View className="flex justify-between items-center text-[#A0A0A0] flex-row">
-                                    <Text className="text-xs"><Text className="text-white font-semibold">28.50 gr</Text> terkumpul</Text>
-                                    <Text className="text-xs">Target: 50.00 gr</Text>
+                                    <Text className="text-xs text-white"><Text className="text-white font-semibold">28.50 gr</Text> terkumpul</Text>
+                                    <Text className="text-xs text-white">Target: 50.00 gr</Text>
                                 </View>
                             </View>
 
@@ -293,7 +293,7 @@ export default function PortfolioScreen() {
                                     <View className="h-full bg-[#03DAC6] rounded-full" style={{ width: '100%' }} />
                                 </View>
                                 <View className="flex justify-between items-center text-[#A0A0A0] flex-row">
-                                    <Text className="text-xs"><Text className="text-[#03DAC6] font-semibold">10.00 gr</Text> tercapai</Text>
+                                    <Text className="text-xs text-[#03DAC6]"><Text className="text-[#03DAC6] font-semibold">10.00 gr</Text> tercapai</Text>
                                     <Text className="text-xs text-[#03DAC6]">Target Terpenuhi ✓</Text>
                                 </View>
                             </View>

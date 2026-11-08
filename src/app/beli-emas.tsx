@@ -183,8 +183,17 @@ export default function BuyGoldScreen() {
                                 <Text className="text-xs text-[#A0A0A0] truncate">Beli emas berkala mingguan / bulanan otomatis</Text>
                             </View>
                         </View>
-                        <TouchableOpacity onPress={() => setAutoInvest(!autoInvest)} className={`w-11 h-6 rounded-full p-1 flex ${autoInvest ? 'bg-[#fcb858] justify-end' : 'bg-[#2C2C2C] justify-start'}`}>
-                            <View className="w-4 h-4 rounded-full bg-white" />
+                        <TouchableOpacity
+                            onPress={() => setAutoInvest(!autoInvest)}
+                            className={`w-11 h-6 rounded-full p-0.5 justify-center relative ${autoInvest ? 'bg-[#fcb858]' : 'bg-[#2C2C2C]'}`}
+                            activeOpacity={0.8}
+                        >
+                            <View
+                                style={{
+                                    transform: [{ translateX: autoInvest ? 20 : 0 }]
+                                }}
+                                className="w-5 h-5 rounded-full bg-white shadow-sm"
+                            />
                         </TouchableOpacity>
                     </View>
 
