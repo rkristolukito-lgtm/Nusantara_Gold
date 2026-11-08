@@ -152,7 +152,7 @@ export default function BuyGoldScreen() {
                                 <Text className="text-xs text-[#A0A0A0]">Estimasi Fisik</Text>
                                 <View className="inline-flex items-center gap-1 bg-[#2C2C2C] px-2 py-0.5 rounded-full text-[#03DAC6] flex-row">
                                     <MaterialIcons name="token" size={14} color="#03DAC6" />
-                                    <Text className="text-xs font-semibold">≈ {gramTotal.toFixed(4)} gram murni (99.99%)</Text>
+                                    <Text className="text-xs font-semibold text-[#A0A0A0]">≈ {gramTotal.toFixed(4)} gram murni (99.99%)</Text>
                                 </View>
                             </View>
                         </View>
@@ -198,15 +198,15 @@ export default function BuyGoldScreen() {
                         </View>
                         <View className="space-y-2 text-[#A0A0A0]">
                             <View className="flex justify-between items-center flex-row">
-                                <Text>Harga Pokok Emas</Text>
+                                <Text className="text-white font-semibold">Harga Pokok Emas</Text>
                                 <Text className="text-white font-semibold">Rp {formatNumber(pokok)}</Text>
                             </View>
                             <View className="flex justify-between items-center flex-row">
-                                <Text className="flex items-center gap-1">Biaya Layanan &amp; Kustodian</Text>
+                                <Text className="flex items-center gap-1 text-white font-semibold">Biaya Layanan &amp; Kustodian</Text>
                                 <Text className="text-[#03DAC6] font-semibold">Rp 0 <Text className="text-[10px] text-[#03DAC6] bg-[#2C2C2C] px-1.5 py-0.5 rounded ml-1 font-bold">PROMO</Text></Text>
                             </View>
                             <View className="flex justify-between items-center flex-row">
-                                <Text className="flex items-center gap-1">PPN Emas (PMK No. 48/2023)</Text>
+                                <Text className="flex items-center gap-1 text-white font-semibold">PPN Emas (PMK No. 48/2023)</Text>
                                 <Text className="text-white font-semibold">Rp {formatNumber(tax)}</Text>
                             </View>
                             <View className="flex justify-between items-center pt-2 border-t border-[#2C2C2C] flex-row">
