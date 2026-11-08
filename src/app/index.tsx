@@ -1,8 +1,14 @@
+// app/index.tsx
 import { Feather, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Svg, { Circle, Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 
 export default function Index() {
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState('beranda');
+  
   const chartPoints = [
     { x: 0, y: 55 },
     { x: 50, y: 48 },
@@ -20,12 +26,52 @@ export default function Index() {
   const fillPath = `${linePath} L 300 80 L 0 80 Z`;
 
   return (
-    <ScrollView style={styles.mainContainer} contentContainerStyle={styles.scrollContent}>
-      <View style={styles.contentWrapper}>
-        
-        <View style={styles.headerSection}>
-          <View style={styles.greetingRow}>
-            <View style={styles.textGroup}>
+    <View style={styles.mainContainer}>
+      
+      <View style={styles.header}>
+        <View style={styles.headerContainer}>
+          <View style={styles.leftSection}>
+            <Image
+              source={require('../../assets/images/icon.png')}
+              style={styles.emblemImage}
+              resizeMode="contain"
+            />
+            <View style={styles.titleGroup}>
+              <Text style={styles.brandText}>Nusantara Gold</Text>
+              <Text style={styles.pageTitle}>Beranda</Text>
+            </View>
+          </View>
+
+          <View style={styles.rightSection}>
+            <TouchableOpacity style={styles.notifButton} activeOpacity={0.8}>
+              <MaterialIcons name="notifications-none" size={22} color="#A0A0A0" />
+              <View style={styles.notifBadge} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+                activeOpacity={0.8} 
+                onPress={() => router.replace('/login')}
+                style={styles.textGroupGreeting}
+              >
+                <View style={styles.profileWrapper}>
+                  <Image
+                    source={{
+                      uri: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBPemRiVzgSGeoFrbun2wIXzox0k0Vg9-WQ9Nkx6XPtDBXVfGzrXWewmr1E4vgEI4zNlwuy2i5UrEick6MZOt9Bh2E-5y4j7-hpoEARqbJIn8WgrvrzoJfQ7XGhS7-n0T0DeAfmoGZvkk7oYaQxaXZO66IlSabUgznA4-5Nhvt26Ps7rXWzL8by6rfiC-89MXFwiqizd4hE1oVG65yrLN4xQlgvzXLMYTgTiurnAPRSBrSHrMaxAzvk6Q',
+                    }}
+                    style={styles.profileImage}
+                    resizeMode="cover"
+                  />
+                </View>
+              </TouchableOpacity>
+            
+          </View>
+        </View>
+      </View>
+
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={styles.contentWrapper}>
+          
+          <View style={styles.headerSection}>
+            <View style={styles.greetingRow}>
               <View style={styles.timeRow}>
                 <Text style={styles.timeText}>Waktu Indonesia Barat • 09:41</Text>
                 <View style={styles.liveDot} />
@@ -34,249 +80,328 @@ export default function Index() {
                 <Text style={styles.nameText}>Selamat Pagi, Rania Putri</Text>
                 <Text style={styles.sparkleEmoji}>✨</Text>
               </View>
-            </View>
-            <View style={styles.priorityPill}>
-              <MaterialIcons name="workspace-premium" size={14} color="#fcb858" style={styles.iconSpacing} />
-              <Text style={styles.priorityText}>PRIORITAS</Text>
+              
+              <View style={styles.priorityPill}>
+                <MaterialIcons name="workspace-premium" size={14} color="#fcb858" style={styles.iconSpacing} />
+                <Text style={styles.priorityText}>PRIORITAS</Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={styles.goldCard}>
-          <View style={styles.cardContent}>
-            <View style={styles.cardTopRow}>
-              <View style={styles.cardLabelGroup}>
-                <MaterialCommunityIcons name="diamond" size={20} color="#fcb858" />
-                <Text style={styles.cardLabel}>SALDO LOGAM MULIA</Text>
-              </View>
-              <View style={styles.eyeIconContainer}>
-                <Feather name="eye" size={16} color="#A0A0A0" />
-              </View>
-            </View>
-
-            <View style={styles.balanceGroup}>
-              <View style={styles.gramRow}>
-                <Text style={styles.gramText}>48.7500</Text>
-                <Text style={styles.unitText}>gram</Text>
-              </View>
-              <View style={styles.idrRow}>
-                <Text style={styles.idrText}>Rp 63.862.500</Text>
-                <View style={styles.yieldBadge}>
-                  <MaterialIcons name="trending-up" size={14} color="#03DAC6" />
-                  <Text style={styles.yieldText}>+Rp 4.215.000 (+7.08%)</Text>
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.actionGrid}>
-              <View style={styles.actionItem}>
-                <View style={[styles.actionIconBtn, { backgroundColor: '#fcb858' }]}>
-                  <MaterialIcons name="add" size={22} color="#121212" />
-                </View>
-                <Text style={styles.actionLabel}>Beli</Text>
-              </View>
-              <View style={styles.actionItem}>
-                <View style={styles.actionIconBtnAlt}>
-                  <MaterialIcons name="sync-alt" size={20} color="#fcb858" />
-                </View>
-                <Text style={styles.actionLabel}>Jual</Text>
-              </View>
-              <View style={styles.actionItem}>
-                <View style={styles.actionIconBtnAlt}>
-                  <MaterialIcons name="send" size={20} color="#fcb858" />
-                </View>
-                <Text style={styles.actionLabel}>Transfer</Text>
-              </View>
-              <View style={styles.actionItem}>
-                <View style={styles.actionIconBtnAlt}>
+          <View style={styles.goldCard}>
+            <View style={styles.cardContent}>
+              <View style={styles.cardTopRow}>
+                <View style={styles.cardLabelGroup}>
                   <MaterialCommunityIcons name="diamond" size={20} color="#fcb858" />
+                  <Text style={styles.cardLabel}>SALDO LOGAM MULIA</Text>
                 </View>
-                <Text style={styles.actionLabel}>Cetak</Text>
+                <View style={styles.eyeIconContainer}>
+                  <Feather name="eye" size={16} color="#A0A0A0" />
+                </View>
+              </View>
+
+              <View style={styles.balanceGroup}>
+                <View style={styles.gramRow}>
+                  <Text style={styles.gramText}>48.7500</Text>
+                  <Text style={styles.unitText}>gram</Text>
+                </View>
+                <View style={styles.idrRow}>
+                  <Text style={styles.idrText}>Rp 63.862.500</Text>
+                  <View style={styles.yieldBadge}>
+                    <MaterialIcons name="trending-up" size={14} color="#03DAC6" />
+                    <Text style={styles.yieldText}>+Rp 4.215.000 (+7.08%)</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.actionGrid}>
+                <View style={styles.actionItem}>
+                  <View style={[styles.actionIconBtn, { backgroundColor: '#fcb858' }]}>
+                    <MaterialIcons name="add" size={22} color="#121212" />
+                  </View>
+                  <Text style={styles.actionLabel}>Beli</Text>
+                </View>
+                <View style={styles.actionItem}>
+                  <View style={styles.actionIconBtnAlt}>
+                    <MaterialIcons name="sync-alt" size={20} color="#fcb858" />
+                  </View>
+                  <Text style={styles.actionLabel}>Jual</Text>
+                </View>
+                <View style={styles.actionItem}>
+                  <View style={styles.actionIconBtnAlt}>
+                    <MaterialIcons name="send" size={20} color="#fcb858" />
+                  </View>
+                  <Text style={styles.actionLabel}>Transfer</Text>
+                </View>
+                <View style={styles.actionItem}>
+                  <View style={styles.actionIconBtnAlt}>
+                    <MaterialCommunityIcons name="diamond" size={20} color="#fcb858" />
+                  </View>
+                  <Text style={styles.actionLabel}>Cetak</Text>
+                </View>
               </View>
             </View>
           </View>
+
+          <View style={styles.marketSection}>
+            <View style={styles.marketHeader}>
+              <View style={styles.marketTitleGroup}>
+                <View style={styles.marketDot} />
+                <Text style={styles.marketTitle}>Harga Pasar Antam Terkini</Text>
+              </View>
+              <Text style={styles.updateTime}>Update 09:40 WIB</Text>
+            </View>
+
+            <View style={styles.priceGrid}>
+              <View style={styles.priceCard}>
+                <View style={styles.priceCardTop}>
+                  <Text style={styles.priceLabel}>HARGA BELI</Text>
+                  <View style={styles.changeRow}>
+                    <Text style={styles.upText}>+0.85%</Text>
+                    <MaterialIcons name="north-east" size={14} color="#03DAC6" />
+                  </View>
+                </View>
+                <Text style={styles.mainPrice}>Rp 1.310.000</Text>
+                <Text style={styles.perGram}>per gram</Text>
+              </View>
+              <View style={styles.priceCard}>
+                <View style={styles.priceCardTop}>
+                  <Text style={styles.priceLabel}>HARGA JUAL</Text>
+                  <View style={styles.changeRow}>
+                    <Text style={styles.stableText}>Stabil</Text>
+                    <MaterialIcons name="horizontal-rule" size={14} color="#A0A0A0" />
+                  </View>
+                </View>
+                <Text style={styles.mainPrice}>Rp 1.205.000</Text>
+                <Text style={styles.perGram}>per gram</Text>
+              </View>
+            </View>
+
+            <View style={styles.timeSelector}>
+              <View style={styles.pillContainer}>
+                <View style={[styles.pillBtn, styles.pillBtnActive]}>
+                  <Text style={[styles.pillText, styles.pillTextActive]}>24 Jam</Text>
+                </View>
+                <View style={styles.pillBtn}>
+                  <Text style={styles.pillText}>1 Mgg</Text>
+                </View>
+                <View style={styles.pillBtn}>
+                  <Text style={styles.pillText}>1 Bln</Text>
+                </View>
+                <View style={styles.pillBtn}>
+                  <Text style={styles.pillText}>1 Thn</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.chartContainer}>
+              <View style={styles.chartHeaderInfo}>
+                  <Text style={{ color: '#fcb858', fontSize: 12, fontWeight: '600' }}>Tren Grafik Harga Emas</Text>
+                  <View style={{ paddingHorizontal: 6, paddingVertical: 2, backgroundColor: '#2C2C2C', borderRadius: 4 }}>
+                    <Text style={{ color: '#fcb858', fontSize: 10, fontWeight: 'bold' }}>Rp 1.310.000</Text>
+                  </View>
+              </View>
+              <View style={styles.svgWrapper}>
+                  <Svg height="100%" width="100%" viewBox="0 0 300 80" preserveAspectRatio="none">
+                      <Defs>
+                          <LinearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
+                          <Stop offset="0%" stopColor="#fcb858" stopOpacity="0.4" />
+                          <Stop offset="100%" stopColor="#fcb858" stopOpacity="0.0" />
+                          </LinearGradient>
+                      </Defs>
+                      <Path d={fillPath} fill="url(#goldGradient)" />
+                      <Path d={linePath} fill="none" stroke="#fcb858" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <Circle cx="300" cy="15" r="4" fill="#121212" stroke="#fcb858" strokeWidth="2" />
+                  </Svg>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.promoSection}>
+            <View style={styles.sectionHeaderRow}>
+              <Text style={styles.sectionTitle}>Pilihan Cerdas & Promo</Text>
+              <Text style={styles.linkText}>Lihat Semua</Text>
+            </View>
+            
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.promoScroll}>
+              <View style={styles.promoCard}>
+                <View style={styles.cardTopContent}>
+                  <View style={[styles.promoIconBg, { backgroundColor: 'rgba(3, 218, 198, 0.2)' }]}>
+                    <MaterialIcons name="autorenew" size={20} color="#03DAC6" />
+                  </View>
+                  <Text style={styles.promoTitle}>Rencana Emas Otomatis</Text>
+                  <Text style={styles.promoDesc} numberOfLines={2}>
+                    Disiplin finansial rutin mulai Rp 10.000/hari tanpa biaya admin transaksi.
+                  </Text>
+                </View>
+                <View style={styles.cardBottomAction}>
+                  <Text style={styles.promoTag}>Bebas Biaya Titip</Text>
+                  <View style={styles.actionBtnSm}>
+                    <Text style={styles.actionBtnTextSm}>Aktifkan</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View style={styles.promoCard}>
+                <View style={styles.cardTopContent}>
+                  <View style={[styles.promoIconBg, { backgroundColor: 'rgba(252, 184, 88, 0.2)' }]}>
+                    <MaterialIcons name="confirmation-number" size={20} color="#fcb858" />
+                  </View>
+                  <Text style={styles.promoTitle}>Cashback Rp 50.000</Text>
+                  <Text style={styles.promoDesc} numberOfLines={2}>
+                    Khusus pembelian pertama bulan ini minimal akumulasi 1 gram.
+                  </Text>
+                </View>
+                <View style={styles.cardBottomAction}>
+                  <Text style={[styles.promoTag, { color: '#fcb858' }]}>KILAU50</Text>
+                  <View style={[styles.actionBtnSm, { backgroundColor: '#fcb858' }]}>
+                    <Text style={[styles.actionBtnTextSm, { color: '#121212', fontWeight: 'bold' }]}>Klaim</Text>
+                  </View>
+                </View>
+              </View>
+
+               <View style={styles.promoCard}>
+                <View style={styles.cardTopContent}>
+                  <View style={[styles.promoIconBg, { backgroundColor: 'rgba(3, 218, 198, 0.2)' }]}>
+                    <MaterialIcons name="local-shipping" size={20} color="#03DAC6" />
+                  </View>
+                  <Text style={styles.promoTitle}>Kirim Fisik Antam/UBS</Text>
+                  <Text style={styles.promoDesc} numberOfLines={2}>
+                    Pencetakan bergaransi resmi CertiCard dengan asuransi pengiriman penuh.
+                  </Text>
+                </View>
+                <View style={styles.cardBottomAction}>
+                  <Text style={styles.promoTag}>Mulai 0.5 gr</Text>
+                  <View style={styles.actionBtnSm}>
+                    <Text style={styles.actionBtnTextSm}>Pesan</Text>
+                  </View>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+
+          <View style={styles.historySection}>
+            <View style={styles.sectionHeaderRow}>
+              <Text style={styles.sectionTitle}>Riwayat Transaksi</Text>
+              <Text style={styles.linkText}>Semua Riwayat</Text>
+            </View>
+
+            <View style={styles.historyList}>
+              <View style={styles.historyItem}>
+                <View style={styles.historyLeft}>
+                  <View style={[styles.historyIconBg, { backgroundColor: 'rgba(252, 184, 88, 0.15)' }]}>
+                    <MaterialIcons name="add-circle" size={20} color="#fcb858" />
+                  </View>
+                  <View style={styles.historyTextGroup}>
+                    <Text style={styles.historyTitle} numberOfLines={1}>Pembelian Berkala Auto-Invest</Text>
+                    <Text style={styles.historyDate}>Kemarin • 07:15 WIB</Text>
+                  </View>
+                </View>
+                <View style={styles.historyRight}>
+                  <Text style={styles.historyAmountPos}>+1.5000 gr</Text>
+                  <Text style={styles.historySubAmount}>Rp 1.965.000</Text>
+                </View>
+              </View>
+
+              <View style={styles.historyItem}>
+                <View style={styles.historyLeft}>
+                  <View style={[styles.historyIconBg, { backgroundColor: 'rgba(3, 218, 198, 0.15)' }]}>
+                    <MaterialIcons name="redeem" size={20} color="#03DAC6" />
+                  </View>
+                  <View style={styles.historyTextGroup}>
+                    <Text style={styles.historyTitle} numberOfLines={1}>Cashback Investasi Prioritas</Text>
+                    <Text style={styles.historyDate}>3 Hari lalu • 14:20 WIB</Text>
+                  </View>
+                </View>
+                <View style={styles.historyRight}>
+                  <Text style={styles.historyAmountPos}>+0.0200 gr</Text>
+                  <Text style={[styles.historySubAmount, { color: '#03DAC6' }]}>Berhasil</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+
         </View>
+      </ScrollView>
 
-        <View style={styles.marketSection}>
-          <View style={styles.marketHeader}>
-            <View style={styles.marketTitleGroup}>
-              <View style={styles.marketDot} />
-              <Text style={styles.marketTitle}>Harga Pasar Antam Terkini</Text>
-            </View>
-            <Text style={styles.updateTime}>Update 09:40 WIB</Text>
-          </View>
-
-          <View style={styles.priceGrid}>
-            <View style={styles.priceCard}>
-              <View style={styles.priceCardTop}>
-                <Text style={styles.priceLabel}>HARGA BELI</Text>
-                <View style={styles.changeRow}>
-                  <Text style={styles.upText}>+0.85%</Text>
-                  <MaterialIcons name="north-east" size={14} color="#03DAC6" />
-                </View>
-              </View>
-              <Text style={styles.mainPrice}>Rp 1.310.000</Text>
-              <Text style={styles.perGram}>per gram</Text>
-            </View>
-            <View style={styles.priceCard}>
-              <View style={styles.priceCardTop}>
-                <Text style={styles.priceLabel}>HARGA JUAL</Text>
-                <View style={styles.changeRow}>
-                  <Text style={styles.stableText}>Stabil</Text>
-                  <MaterialIcons name="horizontal-rule" size={14} color="#A0A0A0" />
-                </View>
-              </View>
-              <Text style={styles.mainPrice}>Rp 1.205.000</Text>
-              <Text style={styles.perGram}>per gram</Text>
-            </View>
-          </View>
-
-          <View style={styles.timeSelector}>
-            <View style={styles.pillContainer}>
-              <View style={[styles.pillBtn, styles.pillBtnActive]}>
-                <Text style={[styles.pillText, styles.pillTextActive]}>24 Jam</Text>
-              </View>
-              <View style={styles.pillBtn}>
-                <Text style={styles.pillText}>1 Mgg</Text>
-              </View>
-              <View style={styles.pillBtn}>
-                <Text style={styles.pillText}>1 Bln</Text>
-              </View>
-              <View style={styles.pillBtn}>
-                <Text style={styles.pillText}>1 Thn</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.chartContainer}>
-            <View style={styles.chartHeaderInfo}>
-                <Text style={{ color: '#fcb858', fontSize: 12, fontWeight: '600' }}>📈 Tren Grafik Harga Emas</Text>
-                <View style={{ paddingHorizontal: 6, paddingVertical: 2, backgroundColor: '#2C2C2C', borderRadius: 4 }}>
-                  <Text style={{ color: '#fcb858', fontSize: 10, fontWeight: 'bold' }}>Rp 1.310.000</Text>
-                </View>
-            </View>
-            <View style={styles.svgWrapper}>
-                <Svg height="100%" width="100%" viewBox="0 0 300 80" preserveAspectRatio="none">
-                    <Defs>
-                        <LinearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
-                        <Stop offset="0%" stopColor="#fcb858" stopOpacity="0.4" />
-                        <Stop offset="100%" stopColor="#fcb858" stopOpacity="0.0" />
-                        </LinearGradient>
-                    </Defs>
-                    <Path d={fillPath} fill="url(#goldGradient)" />
-                    <Path d={linePath} fill="none" stroke="#fcb858" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <Circle cx="300" cy="15" r="4" fill="#121212" stroke="#fcb858" strokeWidth="2" />
-                </Svg>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.promoSection}>
-          <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>Pilihan Cerdas & Promo</Text>
-            <Text style={styles.linkText}>Lihat Semua</Text>
-          </View>
+      <View style={styles.footer}>
+        <View style={styles.footerContainer}>
           
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.promoScroll}>
-            <View style={styles.promoCard}>
-              <View style={styles.cardTopContent}>
-                <View style={[styles.promoIconBg, { backgroundColor: 'rgba(3, 218, 198, 0.2)' }]}>
-                  <MaterialIcons name="autorenew" size={20} color="#03DAC6" />
-                </View>
-                <Text style={styles.promoTitle}>Rencana Emas Otomatis</Text>
-                <Text style={styles.promoDesc} numberOfLines={2}>
-                  Disiplin finansial rutin mulai Rp 10.000/hari tanpa biaya admin transaksi.
-                </Text>
-              </View>
-              <View style={styles.cardBottomAction}>
-                <Text style={styles.promoTag}>Bebas Biaya Titip</Text>
-                <View style={styles.actionBtnSm}>
-                  <Text style={styles.actionBtnTextSm}>Aktifkan</Text>
-                </View>
-              </View>
-            </View>
+          <TouchableOpacity 
+            style={styles.footerTab} 
+            onPress={() => setActiveTab('beranda')}
+            activeOpacity={0.8}
+          >
+            <MaterialIcons 
+              name="home" 
+              size={22} 
+              color={activeTab === 'beranda' ? '#fcb858' : '#A0A0A0'} 
+            />
+            <Text style={[styles.footerText, activeTab === 'beranda' && styles.footerTextActive]}>
+              Beranda
+            </Text>
+          </TouchableOpacity>
 
-            <View style={styles.promoCard}>
-              <View style={styles.cardTopContent}>
-                <View style={[styles.promoIconBg, { backgroundColor: 'rgba(252, 184, 88, 0.2)' }]}>
-                  <MaterialIcons name="confirmation-number" size={20} color="#fcb858" />
-                </View>
-                <Text style={styles.promoTitle}>Cashback Rp 50.000</Text>
-                <Text style={styles.promoDesc} numberOfLines={2}>
-                  Khusus pembelian pertama bulan ini minimal akumulasi 1 gram.
-                </Text>
-              </View>
-              <View style={styles.cardBottomAction}>
-                <Text style={[styles.promoTag, { color: '#fcb858' }]}>KILAU50</Text>
-                <View style={[styles.actionBtnSm, { backgroundColor: '#fcb858' }]}>
-                  <Text style={[styles.actionBtnTextSm, { color: '#121212', fontWeight: 'bold' }]}>Klaim</Text>
-                </View>
-              </View>
-            </View>
+          <TouchableOpacity 
+            style={styles.footerTab} 
+            onPress={() => setActiveTab('pasar')}
+            activeOpacity={0.8}
+          >
+            <MaterialIcons 
+              name="show-chart" 
+              size={22} 
+              color={activeTab === 'pasar' ? '#fcb858' : '#A0A0A0'} 
+            />
+            <Text style={[styles.footerText, activeTab === 'pasar' && styles.footerTextActive]}>
+              Pasar
+            </Text>
+          </TouchableOpacity>
 
-             <View style={styles.promoCard}>
-              <View style={styles.cardTopContent}>
-                <View style={[styles.promoIconBg, { backgroundColor: 'rgba(3, 218, 198, 0.2)' }]}>
-                  <MaterialIcons name="local-shipping" size={20} color="#03DAC6" />
-                </View>
-                <Text style={styles.promoTitle}>Kirim Fisik Antam/UBS</Text>
-                <Text style={styles.promoDesc} numberOfLines={2}>
-                  Pencetakan bergaransi resmi CertiCard dengan asuransi pengiriman penuh.
-                </Text>
-              </View>
-              <View style={styles.cardBottomAction}>
-                <Text style={styles.promoTag}>Mulai 0.5 gr</Text>
-                <View style={styles.actionBtnSm}>
-                  <Text style={styles.actionBtnTextSm}>Pesan</Text>
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-        </View>
-
-        <View style={styles.historySection}>
-          <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>Riwayat Transaksi</Text>
-            <Text style={styles.linkText}>Semua Riwayat</Text>
+          <View style={styles.floatingButtonContainer}>
+            <TouchableOpacity 
+              style={styles.floatingButton} 
+              activeOpacity={0.9}
+              onPress={() => setActiveTab('beli-emas')}
+            >
+              <MaterialIcons name="payments" size={26} color="#121212" />
+            </TouchableOpacity>
+            <Text style={styles.floatingButtonLabel}>Beli Emas</Text>
           </View>
 
-          <View style={styles.historyList}>
-            <View style={styles.historyItem}>
-              <View style={styles.historyLeft}>
-                <View style={[styles.historyIconBg, { backgroundColor: 'rgba(252, 184, 88, 0.15)' }]}>
-                  <MaterialIcons name="add-circle" size={20} color="#fcb858" />
-                </View>
-                <View style={styles.historyTextGroup}>
-                  <Text style={styles.historyTitle} numberOfLines={1}>Pembelian Berkala Auto-Invest</Text>
-                  <Text style={styles.historyDate}>Kemarin • 07:15 WIB</Text>
-                </View>
-              </View>
-              <View style={styles.historyRight}>
-                <Text style={styles.historyAmountPos}>+1.5000 gr</Text>
-                <Text style={styles.historySubAmount}>Rp 1.965.000</Text>
-              </View>
-            </View>
+          <TouchableOpacity 
+            style={styles.footerTab} 
+            onPress={() => setActiveTab('transaksi')}
+            activeOpacity={0.8}
+          >
+            <MaterialIcons 
+              name="receipt-long" 
+              size={22} 
+              color={activeTab === 'transaksi' ? '#fcb858' : '#A0A0A0'} 
+            />
+            <Text style={[styles.footerText, activeTab === 'transaksi' && styles.footerTextActive]}>
+              Transaksi
+            </Text>
+          </TouchableOpacity>
 
-            <View style={styles.historyItem}>
-              <View style={styles.historyLeft}>
-                <View style={[styles.historyIconBg, { backgroundColor: 'rgba(3, 218, 198, 0.15)' }]}>
-                  <MaterialIcons name="redeem" size={20} color="#03DAC6" />
-                </View>
-                <View style={styles.historyTextGroup}>
-                  <Text style={styles.historyTitle} numberOfLines={1}>Cashback Investasi Prioritas</Text>
-                  <Text style={styles.historyDate}>3 Hari lalu • 14:20 WIB</Text>
-                </View>
-              </View>
-              <View style={styles.historyRight}>
-                <Text style={styles.historyAmountPos}>+0.0200 gr</Text>
-                <Text style={[styles.historySubAmount, { color: '#03DAC6' }]}>Berhasil</Text>
-              </View>
-            </View>
-          </View>
+          <TouchableOpacity 
+            style={styles.footerTab} 
+            onPress={() => setActiveTab('portofolio')}
+            activeOpacity={0.8}
+          >
+            <MaterialIcons 
+              name="account-balance-wallet" 
+              size={22} 
+              color={activeTab === 'portofolio' ? '#fcb858' : '#A0A0A0'} 
+            />
+            <Text style={[styles.footerText, activeTab === 'portofolio' && styles.footerTextActive]}>
+              Portofolio
+            </Text>
+          </TouchableOpacity>
+
         </View>
-
       </View>
-    </ScrollView>
+
+    </View>
   );
 }
 
@@ -285,9 +410,86 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#121212',
   },
+  header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 50,
+    backgroundColor: 'rgba(18, 18, 18, 0.85)',
+    paddingTop: 40,
+    boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.35)',
+  },
+  headerContainer: {
+    height: 64,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  leftSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  emblemImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+  },
+  titleGroup: {
+    flexDirection: 'column',
+  },
+  brandText: {
+    fontSize: 10,
+    color: '#fcb858',
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+    fontWeight: '700',
+  },
+  pageTitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    lineHeight: 20,
+  },
+  rightSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  notifButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  notifBadge: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#fcb858',
+    borderWidth: 2,
+    borderColor: '#121212',
+  },
+  profileWrapper: {
+    paddingLeft: 4,
+  },
+  profileImage: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(252, 184, 88, 0.4)',
+  },
   scrollContent: {
-    paddingTop: 64,
-    paddingBottom: 112,
+    paddingTop: 128,
+    paddingBottom: 110,
   },
   contentWrapper: {
     flex: 1,
@@ -304,7 +506,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  textGroup: {
+  textGroupGreeting: {
     flexDirection: 'column',
   },
   timeRow: {
@@ -360,11 +562,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E',
     padding: 16,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 6,
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.3)',
   },
   cardContent: {
     gap: 16,
@@ -448,11 +646,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3,
+    boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.2)',
   },
   actionIconBtnAlt: {
     width: 48,
@@ -461,11 +655,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2C2C2C',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3,
+    boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.2)',
   },
   actionLabel: {
     fontSize: 12,
@@ -478,11 +668,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E',
     borderRadius: 12,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
   },
   marketHeader: {
     flexDirection: 'row',
@@ -641,11 +827,7 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'space-between',
     gap: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
   },
   cardTopContent: {
     gap: 8,
@@ -748,5 +930,58 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#A0A0A0',
     marginTop: 1,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 50,
+    backgroundColor: 'rgba(25, 25, 25, 0.9)',
+    paddingBottom: 20,
+    boxShadow: '0px -8px 32px rgba(0, 0, 0, 0.5)',
+  },
+  footerContainer: {
+    height: 64,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  footerTab: {
+    width: 64,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 2,
+  },
+  footerText: {
+    fontSize: 10,
+    color: '#A0A0A0',
+    letterSpacing: -0.2,
+  },
+  footerTextActive: {
+    color: '#fcb858',
+    fontWeight: '600',
+  },
+  floatingButtonContainer: {
+    position: 'relative',
+    top: -16,
+    alignItems: 'center',
+  },
+  floatingButton: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#fcb858',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 8px 24px rgba(245, 158, 11, 0.4)',
+  },
+  floatingButtonLabel: {
+    fontSize: 10,
+    color: '#fcb858',
+    marginTop: 4,
+    fontWeight: '600',
   },
 });
