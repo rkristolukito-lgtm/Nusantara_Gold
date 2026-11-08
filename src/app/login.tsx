@@ -1,567 +1,235 @@
 import { Feather } from "@expo/vector-icons";
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function NusantaraGoldLoginScreen() {
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
-  const [identifier, setIdentifier] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberDevice, setRememberDevice] = useState(true);
-  const [biometricState, setBiometricState] = useState<'idle' | 'loading' | 'success'>('idle');
+    const router = useRouter();
+    const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
+    const [identifier, setIdentifier] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [rememberDevice, setRememberDevice] = useState(true);
+    const [biometricState, setBiometricState] = useState<'idle' | 'loading' | 'success'>('idle');
 
-  const handleBiometricPress = () => {
-    if (biometricState !== 'idle') return;
-    setBiometricState('loading');
-    setTimeout(() => {
-      setBiometricState('success');
-      setTimeout(() => {
-        setBiometricState('idle');
-      }, 1800);
-    }, 1200);
-  };
+    const handleBiometricPress = () => {
+        if (biometricState !== 'idle') return;
+        setBiometricState('loading');
+        setTimeout(() => {
+            setBiometricState('success');
+            setTimeout(() => {
+                setBiometricState('idle');
+            }, 1800);
+        }, 1200);
+    };
 
-  const handleLogin = () => {
-    // Navigate to index.tsx (Dashboard)
-    router.replace('/');
-  };
+    const handleLogin = () => {
+        router.replace('/');
+    };
 
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-        
-        <View style={styles.ambientContainer}>
-          <View style={[styles.glowOrb, styles.glowOrbPrimary]} />
-          <View style={[styles.glowOrb, styles.glowOrbSecondary]} />
-        </View>
+    return (
+        <SafeAreaView className="flex-1 bg-[#0F172A]">
+            <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 40, alignItems: 'center' }} showsVerticalScrollIndicator={false}>
 
-        <View style={styles.headerContainer}>
-          <View style={styles.emblemWrapper}>
-            <View style={styles.emblemGlow} />
-            <View style={styles.emblemBox}>
-              <Image
-                source={require('../../assets/images/icon.png')}
-                style={styles.emblemImage}
-                resizeMode="contain"
-              />
-            </View>
-          </View>
-
-          <View style={styles.badgeContainer}>
-            <Text style={styles.badgeText}>✔ ASET DIGITAL BERSERTIFIKASI</Text>
-          </View>
-
-          <Text style={styles.headline}>
-            Selamat Datang di <Text style={styles.gradientText}>Nusantara Gold</Text>
-          </Text>
-          <Text style={styles.subheadline}>
-            Investasi emas murni 24K aman, tepercaya, dan diawasi resmi Bappebti &amp; OJK.
-          </Text>
-        </View>
-
-        <View style={styles.cardContainer}>
-          
-          <View style={styles.tabWrapper}>
-            <TouchableOpacity
-              style={[styles.tabButton, activeTab === 'login' && styles.tabButtonActive]}
-              onPress={() => setActiveTab('login')}
-            >
-              <Text style={[styles.tabText, activeTab === 'login' && styles.tabTextActive]}>
-                Masuk Akun
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.tabButton, activeTab === 'signup' && styles.tabButtonActive]}
-              onPress={() => setActiveTab('signup')}
-            >
-              <Text style={[styles.tabText, activeTab === 'signup' && styles.tabTextActive]}>
-                Daftar Akun
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.formGroup}>
-            
-            <View style={styles.inputContainer}>
-              <View style={styles.labelRow}>
-                <Text style={styles.labelText}>
-                  {activeTab === 'login' ? 'Nomor HP atau Email Terdaftar' : 'Nomor HP atau Email Baru'}
-                </Text>
-                <Text style={styles.labelSubText}>
-                  {activeTab === 'login' ? 'Terverifikasi KYC' : 'Mulai Pendaftaran'}
-                </Text>
-              </View>
-              <View style={styles.textInputWrapper}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Contoh: 08123456789 / investor@mail.com"
-                  placeholderTextColor="#94A3B8"
-                  value={identifier}
-                  onChangeText={setIdentifier}
-                  autoCapitalize="none"
-                />
-              </View>
-            </View>
-
-            <View style={styles.inputContainer}>
-              <View style={styles.labelRow}>
-                <Text style={styles.labelText}>
-                  {activeTab === 'login' ? 'Kata Sandi / PIN Keamanan' : 'Buat Kata Sandi / PIN'}
-                </Text>
-                {activeTab === 'login' && (
-                  <TouchableOpacity>
-                    <Text style={styles.linkText}>Lupa Kata Sandi?</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
-              <View style={styles.textInputWrapper}>
-                <TextInput
-                  style={[styles.textInput, { paddingRight: 45 }]}
-                  placeholder={activeTab === 'login' ? 'Masukkan 6-digit PIN atau Sandi' : 'Minimal 6 karakter'}
-                  placeholderTextColor="#94A3B8"
-                  secureTextEntry={!showPassword}
-                  value={password}
-                  onChangeText={setPassword}
-                />
-                <TouchableOpacity
-                  style={styles.eyeButton}
-                  onPress={() => setShowPassword(!showPassword)}
-                >
-                  <Text style={{ fontSize: 14 }}>{showPassword ? <View style={styles.eyeIconContainer}>
-                  <Feather name="eye-off" size={16} color="#A0A0A0" /></View> : <View style={styles.eyeIconContainer}>
-                  <Feather name="eye" size={16} color="#A0A0A0" /></View>}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            {activeTab === 'login' ? (
-              <TouchableOpacity
-                style={styles.checkboxRow}
-                activeOpacity={0.8}
-                onPress={() => setRememberDevice(!rememberDevice)}
-              >
-                <View style={[styles.checkbox, rememberDevice && styles.checkboxChecked]}>
-                  {rememberDevice && <Text style={{ color: '#FFF', fontSize: 10 }}>✓</Text>}
+                <View className="absolute w-full h-[300px] overflow-hidden items-center">
+                    <View className="absolute -top-10 w-[250px] h-[250px] rounded-full bg-[rgba(245,158,11,0.15)]" />
+                    <View className="absolute top-[100px] right-2.5 w-[140px] h-[140px] rounded-full bg-[rgba(217,119,6,0.1)]" />
                 </View>
-                <Text style={styles.checkboxLabel}>Simpan perangkat tepercaya untuk transaksi cepat</Text>
-              </TouchableOpacity>
-            ) : (
-              <View style={styles.checkboxRow}>
-                <View style={[styles.checkbox, styles.checkboxChecked]}>
-                  <Text style={{ color: '#FFF', fontSize: 10 }}>✓</Text>
+
+                <View className="items-center my-6 z-10">
+                    <View className="mb-4">
+                        <View className="absolute -inset-1 rounded-2xl bg-[rgba(245,158,11,0.3)]" />
+
+                        <View className="w-12 h-12 rounded-xl bg-[#1E293B] items-center justify-center shadow-md overflow-hidden">
+                            <Image
+                                source={require('../../assets/images/icon.png')}
+                                style={{ width: 64, height: 64 }}
+                                resizeMode="contain"
+                            />
+                        </View>
+                    </View>
+
+                    <View className="flex-row items-center bg-[#1E293B] px-3 py-1 rounded-full mb-2.5">
+                        <Text className="text-[#F59E0B] text-[11px] font-bold tracking-widest">✔ ASET DIGITAL BERSERTIFIKASI</Text>
+                    </View>
+
+                    <Text className="text-[22px] font-bold text-[#F8FAFC] text-center mb-2">
+                        Selamat Datang di <Text className="text-[#FBBF24]">Nusantara Gold</Text>
+                    </Text>
+                    <Text className="text-sm text-[#94A3B8] text-center max-w-[280px] leading-5">
+                        Investasi emas murni 24K aman, tepercaya, dan diawasi resmi Bappebti &amp; OJK.
+                    </Text>
                 </View>
-                <Text style={styles.checkboxLabel}>Saya menyetujui Syarat & Ketentuan serta Kebijakan Privasi</Text>
-              </View>
-            )}
 
-            <TouchableOpacity 
-              style={styles.primaryButton} 
-              activeOpacity={0.9}
-              onPress={handleLogin}
-            >
-              <Text style={styles.primaryButtonText}>
-                {activeTab === 'login' ? 'Masuk ke Akun' : 'Buat Akun Baru'}
-              </Text>
-            </TouchableOpacity>
+                <View className="w-full bg-[rgba(30,41,59,0.9)] rounded-[20px] p-4 shadow-xl z-10">
 
-            {activeTab === 'login' && (
-              <TouchableOpacity
-                style={styles.biometricButton}
-                activeOpacity={0.9}
-                onPress={handleBiometricPress}
-              >
-                <Text style={styles.biometricIcon}>🪪</Text>
-                <Text style={styles.biometricText}>
-                  {biometricState === 'loading'
-                    ? 'Memverifikasi Biometrik...'
-                    : biometricState === 'success'
-                    ? 'Autentikasi Berhasil!'
-                    : 'Masuk Cepat dengan Biometrik'}
-                </Text>
-                <View style={styles.biometricBadge}>
-                  <Text style={styles.biometricBadgeText}>Face ID</Text>
+                    <View className="flex-row bg-[rgba(15,23,42,0.8)] rounded-xl p-1 mb-4">
+                        <TouchableOpacity
+                            className={`flex-1 py-2 rounded-lg items-center ${activeTab === 'login' ? 'bg-[#334155]' : ''}`}
+                            onPress={() => setActiveTab('login')}
+                        >
+                            <Text className={`text-[13px] ${activeTab === 'login' ? 'text-[#F8FAFC] font-semibold' : 'text-[#94A3B8] font-medium'}`}>
+                                Masuk Akun
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            className={`flex-1 py-2 rounded-lg items-center ${activeTab === 'signup' ? 'bg-[#334155]' : ''}`}
+                            onPress={() => setActiveTab('signup')}
+                        >
+                            <Text className={`text-[13px] ${activeTab === 'signup' ? 'text-[#F8FAFC] font-semibold' : 'text-[#94A3B8] font-medium'}`}>
+                                Daftar Akun
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View className="gap-4">
+
+                        <View className="gap-1.5">
+                            <View className="flex-row justify-between items-center">
+                                <Text className="text-xs text-[#94A3B8] font-medium">
+                                    {activeTab === 'login' ? 'Nomor HP atau Email Terdaftar' : 'Nomor HP atau Email Baru'}
+                                </Text>
+                                <Text className="text-[11px] text-[#FBBF24]">
+                                    {activeTab === 'login' ? 'Terverifikasi KYC' : 'Mulai Pendaftaran'}
+                                </Text>
+                            </View>
+                            <View className="relative justify-center">
+                                <TextInput
+                                    className="bg-[#0F172A] text-[#F8FAFC] text-sm px-4 py-3 rounded-xl"
+                                    placeholder="Contoh: 08123456789 / investor@mail.com"
+                                    placeholderTextColor="#94A3B8"
+                                    value={identifier}
+                                    onChangeText={setIdentifier}
+                                    autoCapitalize="none"
+                                />
+                            </View>
+                        </View>
+
+                        <View className="gap-1.5">
+                            <View className="flex-row justify-between items-center">
+                                <Text className="text-xs text-[#94A3B8] font-medium">
+                                    {activeTab === 'login' ? 'Kata Sandi / PIN Keamanan' : 'Buat Kata Sandi / PIN'}
+                                </Text>
+                                {activeTab === 'login' && (
+                                    <TouchableOpacity>
+                                        <Text className="text-xs text-[#FBBF24] font-semibold">Lupa Kata Sandi?</Text>
+                                    </TouchableOpacity>
+                                )}
+                            </View>
+                            <View className="relative justify-center">
+                                <TextInput
+                                    className="bg-[#0F172A] text-[#F8FAFC] text-sm px-4 py-3 rounded-xl pr-[45px]"
+                                    placeholder={activeTab === 'login' ? 'Masukkan 6-digit PIN atau Sandi' : 'Minimal 6 karakter'}
+                                    placeholderTextColor="#94A3B8"
+                                    secureTextEntry={!showPassword}
+                                    value={password}
+                                    onChangeText={setPassword}
+                                />
+                                <TouchableOpacity
+                                    className="absolute right-4 p-1"
+                                    onPress={() => setShowPassword(!showPassword)}
+                                >
+                                    <Feather name={showPassword ? "eye-off" : "eye"} size={16} color="#A0A0A0" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                        {activeTab === 'login' ? (
+                            <TouchableOpacity
+                                className="flex-row items-center gap-2 my-1"
+                                activeOpacity={0.8}
+                                onPress={() => setRememberDevice(!rememberDevice)}
+                            >
+                                <View className={`w-[18px] h-[18px] rounded bg-[#0F172A] items-center justify-center border border-[#334155] ${rememberDevice ? 'bg-[#D97706] border-[#D97706]' : ''}`}>
+                                    {rememberDevice && <Text className="text-white text-[10px]">✓</Text>}
+                                </View>
+                                <Text className="text-xs text-[#94A3B8] flex-1">Simpan perangkat tepercaya untuk transaksi cepat</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <View className="flex-row items-center gap-2 my-1">
+                                <View className="w-[18px] h-[18px] rounded bg-[#D97706] items-center justify-center border border-[#D97706]">
+                                    <Text className="text-white text-[10px]">✓</Text>
+                                </View>
+                                <Text className="text-xs text-[#94A3B8] flex-1">Saya menyetujui Syarat & Ketentuan serta Kebijakan Privasi</Text>
+                            </View>
+                        )}
+
+                        <TouchableOpacity
+                            className="bg-[#D97706] rounded-xl py-3.5 items-center justify-center mt-1"
+                            activeOpacity={0.9}
+                            onPress={handleLogin}
+                        >
+                            <Text className="text-white text-[15px] font-bold">
+                                {activeTab === 'login' ? 'Masuk ke Akun' : 'Buat Akun Baru'}
+                            </Text>
+                        </TouchableOpacity>
+
+                        {activeTab === 'login' && (
+                            <TouchableOpacity
+                                className="flex-row bg-[#334155] rounded-xl py-3 px-4 items-center justify-between"
+                                activeOpacity={0.9}
+                                onPress={handleBiometricPress}
+                            >
+                                <Text className="text-base">🪪</Text>
+                                <Text className="flex-1 ml-2.5 text-[13px] text-[#F8FAFC] font-semibold">
+                                    {biometricState === 'loading'
+                                        ? 'Memverifikasi Biometrik...'
+                                        : biometricState === 'success'
+                                            ? 'Autentikasi Berhasil!'
+                                            : 'Masuk Cepat dengan Biometrik'}
+                                </Text>
+                                <View className="bg-[#1E293B] px-2 py-0.5 rounded-full">
+                                    <Text className="text-[10px] text-[#FBBF24]">Face ID</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )}
+                    </View>
+
+                    <View className="flex-row items-center justify-center my-4">
+                        <View className="absolute w-full h-[1px] bg-[#334155]" />
+                        <Text className="bg-[#1E1E1E] px-2 text-[11px] text-[#94A3B8] uppercase">
+                            {activeTab === 'login' ? 'atau masuk dengan' : 'atau daftar dengan'}
+                        </Text>
+                    </View>
+
+                    <View className="flex-row gap-3">
+                        <TouchableOpacity className="flex-1 bg-[#0F172A] py-2.5 rounded-xl items-center justify-center" activeOpacity={0.8}>
+                            <Text className="text-[#F8FAFC] text-[13px] font-semibold">Google</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity className="flex-1 bg-[#0F172A] py-2.5 rounded-xl items-center justify-center" activeOpacity={0.8}>
+                            <Text className="text-[#F8FAFC] text-[13px] font-semibold">Apple ID</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {activeTab === 'login' && (
+                        <View className="mt-3">
+                            <View className="flex-row bg-[#0F172A] rounded-xl p-3 items-center justify-between">
+                                <View>
+                                    <Text className="text-[13px] text-[#F8FAFC] font-semibold">Belum punya akun emas?</Text>
+                                    <Text className="text-[11px] text-[#D97706] font-medium">Bonus pendaftaran 0.05 gr</Text>
+                                </View>
+                                <TouchableOpacity className="bg-[#FBBF24] px-3 py-1.5 rounded-lg" onPress={() => setActiveTab('signup')}>
+                                    <Text className="text-[#0F172A] text-xs font-bold">Daftar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )}
+
                 </View>
-              </TouchableOpacity>
-            )}
-          </View>
 
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>
-              {activeTab === 'login' ? 'atau masuk dengan' : 'atau daftar dengan'}
-            </Text>
-          </View>
-
-          <View style={styles.socialGrid}>
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
-              <Text style={styles.socialButtonText}>Google</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton} activeOpacity={0.8}>
-              <Text style={styles.socialButtonText}>Apple ID</Text>
-            </TouchableOpacity>
-          </View>
-
-          {activeTab === 'login' && (
-            <View style={styles.pitchContainer}>
-              <View style={styles.pitchContent}>
-                <View>
-                  <Text style={styles.pitchTitle}>Belum punya akun emas?</Text>
-                  <Text style={styles.pitchSubtitle}>Bonus pendaftaran 0.05 gr</Text>
+                <View className="mt-6 items-center">
+                    <View className="flex-row items-center gap-2">
+                        <TouchableOpacity><Text className="text-xs text-[#94A3B8]">Pusat Bantuan</Text></TouchableOpacity>
+                        <Text className="text-[#94A3B8]">•</Text>
+                        <TouchableOpacity><Text className="text-xs text-[#94A3B8]">Syarat &amp; Ketentuan</Text></TouchableOpacity>
+                        <Text className="text-[#94A3B8]">•</Text>
+                        <TouchableOpacity><Text className="text-xs text-[#94A3B8]">Kebijakan Privasi</Text></TouchableOpacity>
+                    </View>
                 </View>
-                <TouchableOpacity style={styles.pitchButton} onPress={() => setActiveTab('signup')}>
-                  <Text style={styles.pitchButtonText}>Daftar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
 
-        </View>
-
-        <View style={styles.footerContainer}>
-          <View style={styles.footerLinksRow}>
-            <TouchableOpacity><Text style={styles.footerLinkText}>Pusat Bantuan</Text></TouchableOpacity>
-            <Text style={styles.footerDot}>•</Text>
-            <TouchableOpacity><Text style={styles.footerLinkText}>Syarat &amp; Ketentuan</Text></TouchableOpacity>
-            <Text style={styles.footerDot}>•</Text>
-            <TouchableOpacity><Text style={styles.footerLinkText}>Kebijakan Privasi</Text></TouchableOpacity>
-          </View>
-        </View>
-
-      </ScrollView>
-    </SafeAreaView>
-  );
+            </ScrollView>
+        </SafeAreaView>
+    );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#0F172A',
-  },
-  container: {
-    paddingHorizontal: 20,
-    paddingBottom: 40,
-    position: 'relative',
-    alignItems: 'center',
-  },
-  ambientContainer: {
-    position: 'absolute',
-    width: '100%',
-    height: 300,
-    overflow: 'hidden',
-    alignItems: 'center',
-  },
-  glowOrb: {
-    position: 'absolute',
-    borderRadius: 999,
-  },
-  glowOrbPrimary: {
-    top: -40,
-    width: 250,
-    height: 250,
-    backgroundColor: 'rgba(245, 158, 11, 0.15)',
-  },
-  glowOrbSecondary: {
-    top: 100,
-    right: 10,
-    width: 140,
-    height: 140,
-    backgroundColor: 'rgba(217, 119, 6, 0.1)',
-  },
-  headerContainer: {
-    alignItems: 'center',
-    textAlign: 'center',
-    marginVertical: 24,
-    zIndex: 10,
-  },
-  emblemWrapper: {
-    marginBottom: 16,
-  },
-  emblemGlow: {
-    position: 'absolute',
-    top: -4,
-    bottom: -4,
-    left: -4,
-    right: -4,
-    borderRadius: 16,
-    backgroundColor: 'rgba(245, 158, 11, 0.3)',
-  },
-  emblemBox: {
-    width: 80,
-    height: 80,
-    borderRadius: 16,
-    backgroundColor: '#1E293B',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    boxShadow: '0px 6px 10px rgba(0, 0, 0, 0.3)',
-  },
-  emblemImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 12,
-  },
-  badgeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1E293B',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 999,
-    marginBottom: 10,
-  },
-  badgeText: {
-    color: '#F59E0B',
-    fontSize: 11,
-    fontWeight: 'bold',
-    letterSpacing: 1,
-  },
-  headline: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#F8FAFC',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  gradientText: {
-    color: '#FBBF24',
-  },
-  subheadline: {
-    fontSize: 14,
-    color: '#94A3B8',
-    textAlign: 'center',
-    maxWidth: 280,
-    lineHeight: 20,
-  },
-  cardContainer: {
-    width: '100%',
-    backgroundColor: 'rgba(30, 41, 59, 0.9)',
-    borderRadius: 20,
-    padding: 16,
-    boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.4)',
-    zIndex: 10,
-  },
-  tabWrapper: {
-    flexDirection: 'row',
-    backgroundColor: 'rgba(15, 23, 42, 0.8)',
-    borderRadius: 12,
-    padding: 4,
-    marginBottom: 16,
-  },
-  tabButton: {
-    flex: 1,
-    paddingVertical: 8,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  tabButtonActive: {
-    backgroundColor: '#334155',
-  },
-  tabText: {
-    fontSize: 13,
-    color: '#94A3B8',
-    fontWeight: '500',
-  },
-  tabTextActive: {
-    color: '#F8FAFC',
-    fontWeight: '600',
-  },
-  formGroup: {
-    gap: 16,
-  },
-  inputContainer: {
-    gap: 6,
-  },
-  labelRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  labelText: {
-    fontSize: 12,
-    color: '#94A3B8',
-    fontWeight: '500',
-  },
-  labelSubText: {
-    fontSize: 11,
-    color: '#FBBF24',
-  },
-  linkText: {
-    fontSize: 12,
-    color: '#FBBF24',
-    fontWeight: '600',
-  },
-  textInputWrapper: {
-    position: 'relative',
-    justifyContent: 'center',
-  },
-  textInput: {
-    backgroundColor: '#0F172A',
-    color: '#F8FAFC',
-    fontSize: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-  },
-  eyeButton: {
-    position: 'absolute',
-    right: 16,
-    padding: 4,
-  },
-  checkboxRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginVertical: 4,
-  },
-  checkbox: {
-    width: 18,
-    height: 18,
-    borderRadius: 4,
-    backgroundColor: '#0F172A',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#334155',
-  },
-  checkboxChecked: {
-    backgroundColor: '#D97706',
-    borderColor: '#D97706',
-  },
-  checkboxLabel: {
-    fontSize: 12,
-    color: '#94A3B8',
-    flex: 1,
-  },
-  primaryButton: {
-    backgroundColor: '#D97706',
-    borderRadius: 12,
-    paddingVertical: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 4,
-  },
-  primaryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  biometricButton: {
-    flexDirection: 'row',
-    backgroundColor: '#334155',
-    borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  biometricIcon: {
-    fontSize: 16,
-  },
-  biometricText: {
-    flex: 1,
-    marginLeft: 10,
-    fontSize: 13,
-    color: '#F8FAFC',
-    fontWeight: '600',
-  },
-  biometricBadge: {
-    backgroundColor: '#1E293B',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 999,
-  },
-  biometricBadgeText: {
-    fontSize: 10,
-    color: '#FBBF24',
-  },
-  dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 16,
-  },
-  dividerLine: {
-    position: 'absolute',
-    width: '100%',
-    height: 1,
-    backgroundColor: '#334155',
-  },
-  dividerText: {
-    backgroundColor: '#1E293B',
-    paddingHorizontal: 8,
-    fontSize: 11,
-    color: '#A0A0A0',
-    textTransform: 'uppercase',
-  },
-  socialGrid: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  socialButton: {
-    flex: 1,
-    backgroundColor: '#0F172A',
-    paddingVertical: 10,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  socialButtonText: {
-    color: '#F8FAFC',
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  pitchContainer: {
-    marginTop: 12,
-  },
-  pitchContent: {
-    flexDirection: 'row',
-    backgroundColor: '#0F172A',
-    borderRadius: 12,
-    padding: 12,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  pitchTitle: {
-    fontSize: 13,
-    color: '#F8FAFC',
-    fontWeight: '600',
-  },
-  pitchSubtitle: {
-    fontSize: 11,
-    color: '#D97706',
-    fontWeight: '500',
-  },
-  pitchButton: {
-    backgroundColor: '#FBBF24',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-  },
-  pitchButtonText: {
-    color: '#0F172A',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  footerContainer: {
-    marginTop: 24,
-    alignItems: 'center',
-  },
-  footerLinksRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  footerLinkText: {
-    fontSize: 12,
-    color: '#94A3B8',
-  },
-  footerDot: {
-    color: '#94A3B8',
-  },
-  eyeIconContainer: {
-    padding: 4,
-  },
-});
