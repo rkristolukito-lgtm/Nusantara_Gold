@@ -115,7 +115,6 @@ export default function TransactionHistoryScreen() {
     return (
         <View className="flex-1 bg-[#121212]">
 
-            {/* Header */}
             <View className="absolute top-0 left-0 right-0 z-50 bg-[#121212]/85 pt-10 shadow-[0_4px_24px_rgba(0,0,0,0.35)]">
                 <View className="h-16 px-4 flex-row items-center justify-between">
                     <View className="flex-row items-center gap-3">
@@ -155,7 +154,6 @@ export default function TransactionHistoryScreen() {
                 </View>
             </View>
 
-            {/* Scrollable Content */}
             <ScrollView contentContainerStyle={{ paddingTop: 128, paddingBottom: 110 }} showsVerticalScrollIndicator={false}>
                 <View className="flex flex-col w-full px-4 pb-8 gap-4">
 
@@ -336,7 +334,6 @@ export default function TransactionHistoryScreen() {
                 </View>
             </ScrollView>
 
-            {/* Modal Detail Transaksi */}
             <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
                 <View className="flex-1 bg-black/75 justify-end">
                     <View className="w-full bg-[#1E1E1E] rounded-t-3xl p-5 max-h-[90%] flex flex-col gap-4">
@@ -425,7 +422,6 @@ export default function TransactionHistoryScreen() {
                 </View>
             </Modal>
 
-            {/* Footer Navigation */}
             <View className="absolute bottom-0 left-0 right-0 z-50 bg-[#191919]/90 pb-5 shadow-[0_-8px_32px_rgba(0,0,0,0.5)]">
                 <View className="h-16 px-4 flex-row items-center justify-between">
                     <TouchableOpacity
