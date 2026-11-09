@@ -11,8 +11,6 @@ export default function MarketScreen() {
 
     return (
         <View className="flex-1 bg-[#121212]">
-
-            {/* Header */}
             <View className="absolute top-0 left-0 right-0 z-50 bg-[#121212]/85 pt-10 shadow-[0_4px_24px_rgba(0,0,0,0.35)]">
                 <View className="h-16 px-4 flex-row items-center justify-between">
                     <View className="flex-row items-center gap-3">
@@ -52,10 +50,8 @@ export default function MarketScreen() {
                 </View>
             </View>
 
-            {/* Scrollable Content */}
             <ScrollView contentContainerStyle={{ paddingTop: 128, paddingBottom: 110 }} showsVerticalScrollIndicator={false}>
                 <View className="flex flex-col w-full px-4 pb-6 gap-4">
-
                     <View className="flex items-center justify-between pt-1 flex-row">
                         <View className="flex items-center gap-2 bg-[#2C2C2C] px-3 py-1 rounded-full shadow-sm flex-row">
                             <View className="relative flex h-2 w-2 items-center justify-center">
@@ -162,8 +158,8 @@ export default function MarketScreen() {
                             <View className="bg-gradient-to-r from-[#03DAC6] to-[#fcb858] h-full w-[89.8%] rounded-full" />
                         </View>
                         <View className="flex justify-between items-center text-[#A0A0A0] text-xs flex-row">
-                            <Text>Diterima bersih ke RDN</Text>
-                            <Text>Bebas PPh 22 via NPWP</Text>
+                            <Text className="text-white">Diterima bersih ke RDN</Text>
+                            <Text className="text-white">Bebas PPh 22 via NPWP</Text>
                         </View>
                     </View>
 
@@ -203,7 +199,7 @@ export default function MarketScreen() {
                             <View className="bg-[#2C2C2C]/60 p-3 rounded-lg flex-1">
                                 <View className="flex items-center gap-1 text-[#A0A0A0] text-xs mb-1 flex-row">
                                     <MaterialIcons name="public" size={14} color="#A0A0A0" />
-                                    <Text>Kurs Acuan USD/IDR</Text>
+                                    <Text className="text-white">Kurs Acuan USD/IDR</Text>
                                 </View>
                                 <Text className="text-base font-bold text-white">Rp 15.890</Text>
                                 <Text className="text-[11px] text-[#03DAC6] block mt-0.5">+0.08% Kurs JISDOR</Text>
@@ -211,7 +207,7 @@ export default function MarketScreen() {
                             <View className="bg-[#2C2C2C]/60 p-3 rounded-lg flex-1">
                                 <View className="flex items-center gap-1 text-[#A0A0A0] text-xs mb-1 flex-row">
                                     <MaterialIcons name="language" size={14} color="#A0A0A0" />
-                                    <Text>Spot Dunia (XAU/USD)</Text>
+                                    <Text className="text-white">Spot Dunia (XAU/USD)</Text>
                                 </View>
                                 <Text className="text-base font-bold text-white">$2,165.40</Text>
                                 <Text className="text-[11px] text-[#03DAC6] block mt-0.5">+0.95% / troy oz</Text>
@@ -281,11 +277,9 @@ export default function MarketScreen() {
                             </View>
                         ))}
                     </View>
-
                 </View>
             </ScrollView>
 
-            {/* Footer Navigation */}
             <View className="absolute bottom-0 left-0 right-0 z-50 bg-[#191919]/90 pb-5 shadow-[0_-8px_32px_rgba(0,0,0,0.5)]">
                 <View className="h-16 px-4 flex-row items-center justify-between">
                     <TouchableOpacity
@@ -336,7 +330,6 @@ export default function MarketScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
-
         </View>
     );
 }

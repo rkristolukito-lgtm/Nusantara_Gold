@@ -1,4 +1,4 @@
-import { Feather, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
@@ -8,25 +8,11 @@ export default function Index() {
     const router = useRouter();
     const [activeTab, setActiveTab] = useState('beranda');
 
-    const chartPoints = [
-        { x: 0, y: 55 },
-        { x: 50, y: 48 },
-        { x: 100, y: 60 },
-        { x: 150, y: 35 },
-        { x: 200, y: 42 },
-        { x: 250, y: 25 },
-        { x: 300, y: 15 },
-    ];
-
-    const linePath = chartPoints.reduce((acc, pt, idx) => {
-        return idx === 0 ? `M ${pt.x} ${pt.y}` : `${acc} L ${pt.x} ${pt.y}`;
-    }, '');
-
-    const fillPath = `${linePath} L 300 80 L 0 80 Z`;
+    const linePath = "M 0,55 C 40,50 70,60 110,40 C 150,25 190,45 230,30 C 270,18 290,22 300,12";
+    const fillPath = `${linePath} L 300,80 L 0,80 Z`;
 
     return (
         <View className="flex-1 bg-[#121212]">
-
             <View className="absolute top-0 left-0 right-0 z-50 bg-[#121212]/85 pt-10 shadow-[0_4px_24px_rgba(0,0,0,0.35)]">
                 <View className="h-16 px-4 flex-row items-center justify-between">
                     <View className="flex-row items-center gap-3">
@@ -68,7 +54,6 @@ export default function Index() {
 
             <ScrollView contentContainerStyle={{ paddingTop: 128, paddingBottom: 110 }} showsVerticalScrollIndicator={false}>
                 <View className="flex-1 w-full px-4 gap-6">
-
                     <View className="gap-1 pt-1">
                         <View className="flex-row items-center justify-between">
                             <View className="flex-col">
@@ -96,9 +81,6 @@ export default function Index() {
                                     <MaterialCommunityIcons name="diamond" size={20} color="#fcb858" />
                                     <Text className="text-xs font-bold text-[#A0A0A0] tracking-wider">SALDO LOGAM MULIA</Text>
                                 </View>
-                                <View className="p-1">
-                                    <Feather name="eye" size={16} color="#A0A0A0" />
-                                </View>
                             </View>
 
                             <View className="gap-1">
@@ -107,7 +89,7 @@ export default function Index() {
                                     <Text className="text-base text-[#E0E0E0]">gram</Text>
                                 </View>
                                 <View className="flex-row items-center justify-between mt-1">
-                                    <Text className="text-lg font-bold text-white">Rp 63.862.500</Text>
+                                    <Text className="text-lg font-bold text-white">Rp 65.446.875</Text>
                                     <View className="flex-row items-center gap-1 px-2 py-0.5 rounded-xl bg-[#03DAC6]/15">
                                         <MaterialIcons name="trending-up" size={14} color="#03DAC6" />
                                         <Text className="text-xs font-bold text-[#03DAC6]">+Rp 4.215.000 (+7.08%)</Text>
@@ -116,41 +98,67 @@ export default function Index() {
                             </View>
 
                             <View className="pt-1 flex-row justify-between">
-                                <View className="items-center gap-1.5 flex-1">
+                                <TouchableOpacity
+                                    className="items-center gap-1.5 flex-1"
+                                    onPress={() => router.replace('/beli-emas' as any)}
+                                    activeOpacity={0.8}
+                                >
                                     <View className="w-12 h-12 rounded-full bg-[#fcb858] items-center justify-center shadow-sm">
                                         <MaterialIcons name="add" size={22} color="#121212" />
                                     </View>
                                     <Text className="text-xs text-[#E0E0E0] font-medium">Beli</Text>
-                                </View>
-                                <View className="items-center gap-1.5 flex-1">
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    className="items-center gap-1.5 flex-1"
+                                    onPress={() => router.replace('/pasar' as any)}
+                                    activeOpacity={0.8}
+                                >
                                     <View className="w-12 h-12 rounded-full bg-[#2C2C2C] items-center justify-center shadow-sm">
                                         <MaterialIcons name="sync-alt" size={20} color="#fcb858" />
                                     </View>
                                     <Text className="text-xs text-[#E0E0E0] font-medium">Jual</Text>
-                                </View>
-                                <View className="items-center gap-1.5 flex-1">
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    className="items-center gap-1.5 flex-1"
+                                    onPress={() => router.replace('/transaksi' as any)}
+                                    activeOpacity={0.8}
+                                >
                                     <View className="w-12 h-12 rounded-full bg-[#2C2C2C] items-center justify-center shadow-sm">
                                         <MaterialIcons name="send" size={20} color="#fcb858" />
                                     </View>
                                     <Text className="text-xs text-[#E0E0E0] font-medium">Transfer</Text>
-                                </View>
-                                <View className="items-center gap-1.5 flex-1">
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    className="items-center gap-1.5 flex-1"
+                                    onPress={() => router.replace('/portofolio' as any)}
+                                    activeOpacity={0.8}
+                                >
                                     <View className="w-12 h-12 rounded-full bg-[#2C2C2C] items-center justify-center shadow-sm">
                                         <MaterialCommunityIcons name="diamond" size={20} color="#fcb858" />
                                     </View>
                                     <Text className="text-xs text-[#E0E0E0] font-medium">Cetak</Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
 
-                    <View className="flex-col gap-3 bg-[#1E1E1E] rounded-xl p-4 shadow-sm">
+                    <TouchableOpacity
+                        className="flex-col gap-3 bg-[#1E1E1E] rounded-xl p-4 shadow-sm"
+                        onPress={() => router.replace('/pasar' as any)}
+                        activeOpacity={0.9}
+                    >
                         <View className="flex-row items-center justify-between">
                             <View className="flex-row items-center gap-2">
                                 <View className="w-2 h-2 rounded-full bg-[#03DAC6]" />
-                                <Text className="text-sm font-semibold text-white tracking-wide">Harga Pasar Antam Terkini</Text>
+                                <Text className="text-sm font-semibold text-white tracking-wide">Harga Pasar Spot Terkini</Text>
                             </View>
-                            <Text className="text-xs text-[#A0A0A0]">Update 09:40 WIB</Text>
+                            <View className="flex-row items-center gap-0.5">
+                                <Text className="text-xs text-[#fcb858]">Detail Pasar</Text>
+                                <MaterialIcons name="chevron-right" size={16} color="#fcb858" />
+                            </View>
                         </View>
 
                         <View className="flex-row gap-2 pt-1">
@@ -158,11 +166,11 @@ export default function Index() {
                                 <View className="flex-row items-center justify-between">
                                     <Text className="text-[10px] text-[#A0A0A0] font-bold">HARGA BELI</Text>
                                     <View className="flex-row items-center">
-                                        <Text className="text-[10px] text-[#03DAC6] font-bold mr-0.5">+0.85%</Text>
+                                        <Text className="text-[10px] text-[#03DAC6] font-bold mr-0.5">+1.24%</Text>
                                         <MaterialIcons name="north-east" size={14} color="#03DAC6" />
                                     </View>
                                 </View>
-                                <Text className="text-base font-bold text-white mt-1">Rp 1.310.000</Text>
+                                <Text className="text-base font-bold text-white mt-1">Rp 1.342.500</Text>
                                 <Text className="text-[11px] text-[#A0A0A0] mt-0.5">per gram</Text>
                             </View>
 
@@ -179,29 +187,28 @@ export default function Index() {
                             </View>
                         </View>
 
-                        <View className="relative w-full h-[90px] bg-[#121212] rounded-lg mt-1 p-2.5 overflow-hidden">
+                        <View className="relative w-full h-[95px] bg-[#121212] rounded-lg mt-1 p-2.5 overflow-hidden">
                             <View className="flex-row justify-between items-center z-10">
                                 <Text className="text-[#fcb858] text-xs font-semibold">Tren Grafik Harga Emas</Text>
                                 <View className="px-1.5 py-0.5 bg-[#2C2C2C] rounded">
-                                    <Text className="text-[#fcb858] text-[10px] font-bold">Rp 1.310.000</Text>
+                                    <Text className="text-[#fcb858] text-[10px] font-bold">Rp 1.342.500</Text>
                                 </View>
                             </View>
-                            <View className="absolute bottom-0 left-0 right-0 h-[60px]">
+                            <View className="absolute bottom-0 left-0 right-0 h-[65px]">
                                 <Svg height="100%" width="100%" viewBox="0 0 300 80" preserveAspectRatio="none">
                                     <Defs>
                                         <LinearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
-                                            <Stop offset="0%" stopColor="#fcb858" stopOpacity="0.4" />
+                                            <Stop offset="0%" stopColor="#fcb858" stopOpacity="0.45" />
                                             <Stop offset="100%" stopColor="#fcb858" stopOpacity="0.0" />
                                         </LinearGradient>
                                     </Defs>
                                     <Path d={fillPath} fill="url(#goldGradient)" />
                                     <Path d={linePath} fill="none" stroke="#fcb858" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <Circle cx="300" cy="15" r="4" fill="#121212" stroke="#fcb858" strokeWidth="2" />
+                                    <Circle cx="300" cy="12" r="4" fill="#121212" stroke="#fcb858" strokeWidth="2" />
                                 </Svg>
                             </View>
                         </View>
-                    </View>
-
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
 
@@ -255,7 +262,6 @@ export default function Index() {
                     </TouchableOpacity>
                 </View>
             </View>
-
         </View>
     );
 }

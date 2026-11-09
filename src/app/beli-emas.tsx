@@ -48,7 +48,6 @@ export default function BuyGoldScreen() {
     return (
         <View className="flex-1 bg-[#121212]">
 
-            {/* Header */}
             <View className="absolute top-0 left-0 right-0 z-50 bg-[#121212]/85 pt-10 shadow-[0_4px_24px_rgba(0,0,0,0.35)]">
                 <View className="h-16 px-4 flex-row items-center justify-between">
                     <View className="flex-row items-center gap-3">
@@ -88,7 +87,6 @@ export default function BuyGoldScreen() {
                 </View>
             </View>
 
-            {/* Scrollable Content */}
             <ScrollView contentContainerStyle={{ paddingTop: 128, paddingBottom: 110 }} showsVerticalScrollIndicator={false}>
                 <View className="flex flex-col w-full px-4 pb-8 gap-4">
 
@@ -268,7 +266,6 @@ export default function BuyGoldScreen() {
                 </View>
             </ScrollView>
 
-            {/* Footer Navigation */}
             <View className="absolute bottom-0 left-0 right-0 z-50 bg-[#191919]/90 pb-5 shadow-[0_-8px_32px_rgba(0,0,0,0.5)]">
                 <View className="h-16 px-4 flex-row items-center justify-between">
                     <TouchableOpacity
