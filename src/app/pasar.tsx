@@ -62,7 +62,7 @@ export default function MarketScreen() {
                         </View>
                         <View className="flex items-center gap-1 text-[#A0A0A0] flex-row">
                             <MaterialIcons name="sync" size={14} color="#A0A0A0" />
-                            <Text className="text-[11px]">Sinkron 14:35 WIB</Text>
+                            <Text className="text-[11px] text-white">Sinkron 14:35 WIB</Text>
                         </View>
                     </View>
 

@@ -131,7 +131,7 @@ export default function NusantaraGoldLoginScreen() {
                                     className="absolute right-4 p-1"
                                     onPress={() => setShowPassword(!showPassword)}
                                 >
-                                    <Feather name={showPassword ? "eye-off" : "eye"} size={16} color="#A0A0A0" />
+                                    <Feather name={showPassword ? "eye" : "eye-off"} size={16} color="#A0A0A0" />
                                 </TouchableOpacity>
                             </View>
                         </View>
