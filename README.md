@@ -1,3 +1,11 @@
+Raphael Kristo Lukito
+2802536972
+finansial
+Buka Terminal dan arahkan ke direktori proyek Anda.Instal dependensi (jika belum pernah):   Bashnpm install
+(Opsional) Jika pustaka react-native-css-interop belum terpasang, instal terlebih dahulu:Bashnpx expo install react-native-css-interop
+Jalankan server pengembangan Expo dengan membersihkan cache (-c):Bashnpx expo start -c
+Pilih platform untuk membuka aplikasi:Tekan w untuk membukanya di browser web.   Tekan a untuk membukanya di emulator Android.   Scan QR code menggunakan aplikasi Expo Go di ponsel fisik Anda untuk menjalankannya secara langsung.
+
 React Native merupakan framework open-source yang dikembangkan oleh Meta untuk membangun aplikasi mobile Android dan iOS menggunakan JavaScript dan React. Dengan framework ini, pengembang dapat membuat aplikasi untuk dua platform sekaligus tanpa harus menulis seluruh kode secara terpisah. Sebagian besar kode dapat digunakan bersama sehingga proses pengembangan menjadi lebih efisien.
 React Native menggunakan komponen native untuk menampilkan antarmuka aplikasi. Komponen seperti tombol, teks, dan tampilan lainnya akan disesuaikan dengan elemen bawaan sistem operasi Android maupun iOS. Pendekatan ini membuat aplikasi terasa lebih responsif dan memberikan pengalaman penggunaan yang mendekati aplikasi native.
 
